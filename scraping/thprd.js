@@ -48,16 +48,12 @@ request.get('https://ndtv.com', function(err, request, body) {
 });*/
 //end of hackathon.io scan
 
-var url = 'https://ndtv.com';
+var url = 'http://www.ndtv.com';
 
-console.log(url);
-request.get(url,function(err, resp, body) {
-    console.log(url);
+request.get(url,function(err,resp, body) {
     if(err)
-        return console.log(url);            //exiting at error...
+        return console.log(url+' error!');            //exiting at error...
     $ = cheerio.load(body);
-    console.log(url);
-    console.log($('div').text());
     $('.topst_listing ul li').each(function(day) {
         $(this).each(function() {
             event = $(this).text();
