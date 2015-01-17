@@ -1,33 +1,6 @@
+var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
-
-var courses = {
-    'Java' : 'java'/*,
-    'Python': 'python',
-    'C++': 'C%2B%2B'*/
-};
-
-for (course in courses) {
-    var url = 'https://coursera.org/courses?query=' + courses[course];
-    console.log(course);
-    request(url, (function(course) { return function(err, resp, body) {
-        $ = cheerio.load(body);
-        console.log(course);
-        $('.c-courseList-entry .bt3-col-md-7.bt3-col-xs-6.c-courseList-entry-details .c-courseList-entry-title').each(function(univ) {
-            console.log(course);
-            event=$(this).text();
-            console.log(course);
-            $(this).find('div').each(function() {
-                event = $(this).text();//.trim().replace(/\s\s+/g, ',').split(',');
-                console.log(course + ',' + event);
-            });
-            console.log(event);
-        });
-    }})(course));
-    
-    
-    
-}
 
 
 /*var request = require('request');
@@ -52,3 +25,43 @@ for (course in courses) {
         }
     } )(course));
 }*/
+
+
+/**
+ * 
+ * Web scraping hackathon.io using Cheerio library.
+ */
+
+
+/*var events = [];
+
+request.get('https://ndtv.com', function(err, request, body) {
+    //if (err) return r=(err);
+    var $ = cheerio.load(body);
+    
+    $(".topst_listing ul li").each(function(news) {
+        
+        console.log($(this).text());
+        
+    });
+    //end of list of upcoming hackathon list
+});*/
+//end of hackathon.io scan
+
+var url = 'https://ndtv.com';
+
+console.log(url);
+request.get(url,function(err, resp, body) {
+    console.log(url);
+    if(err)
+        return console.log(url);            //exiting at error...
+    $ = cheerio.load(body);
+    console.log(url);
+    console.log($('div').text());
+    $('.topst_listing ul li').each(function(day) {
+        $(this).each(function() {
+            event = $(this).text();
+            console.log(event);
+        });
+    });
+});
